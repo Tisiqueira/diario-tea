@@ -1,26 +1,119 @@
+/* Importa o Tailwind v4 — substitui @tailwind base/components/utilities */
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 
+  🎨 Definição do Design System
+  Todas as variáveis de cor, fontes e temas (claro/escuro)
+  são definidas dentro de @theme.
+*/
+
+@theme base {
+  /* 🌈 Variáveis principais em HSL */
+  --color-background: hsl(210 25% 98%);
+  --color-foreground: hsl(215 25% 20%);
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(215 25% 20%);
+  --color-popover: hsl(0 0% 100%);
+  --color-popover-foreground: hsl(215 25% 20%);
+  --color-primary: hsl(200 75% 55%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-primary-light: hsl(200 75% 65%);
+  --color-primary-dark: hsl(200 75% 45%);
+  --color-secondary: hsl(155 55% 65%);
+  --color-secondary-foreground: hsl(155 60% 20%);
+  --color-secondary-light: hsl(155 55% 75%);
+  --color-accent: hsl(30 90% 65%);
+  --color-accent-foreground: hsl(30 60% 20%);
+  --color-muted: hsl(210 15% 92%);
+  --color-muted-foreground: hsl(215 15% 50%);
+  --color-destructive: hsl(0 70% 60%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(215 20% 88%);
+  --color-input: hsl(215 20% 90%);
+  --color-ring: hsl(200 75% 55%);
+  --radius: 1rem;
+
+  /* 🌅 Gradientes e sombras */
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(200 75% 55%),
+    hsl(155 55% 65%)
+  );
+  --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(210 25% 98%));
+  --shadow-soft: 0 4px 20px -2px hsl(200 75% 55% / 0.1);
+  --shadow-medium: 0 8px 30px -4px hsl(200 75% 55% / 0.15);
+
+  /* 🧭 Sidebar */
+  --sidebar-background: hsl(0 0% 98%);
+  --sidebar-foreground: hsl(240 5.3% 26.1%);
+  --sidebar-primary: hsl(240 5.9% 10%);
+  --sidebar-primary-foreground: hsl(0 0% 98%);
+  --sidebar-accent: hsl(240 4.8% 95.9%);
+  --sidebar-accent-foreground: hsl(240 5.9% 10%);
+  --sidebar-border: hsl(220 13% 91%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+  /* 🧱 Fontes */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 🌙 Tema escuro */
+@theme dark {
+  --color-background: hsl(215 30% 12%);
+  --color-foreground: hsl(210 25% 95%);
+  --color-card: hsl(215 25% 15%);
+  --color-card-foreground: hsl(210 25% 95%);
+  --color-popover: hsl(215 25% 15%);
+  --color-popover-foreground: hsl(210 25% 95%);
+  --color-primary: hsl(200 75% 60%);
+  --color-primary-foreground: hsl(0 0% 100%);
+  --color-primary-light: hsl(200 75% 70%);
+  --color-primary-dark: hsl(200 75% 50%);
+  --color-secondary: hsl(155 50% 55%);
+  --color-secondary-foreground: hsl(0 0% 100%);
+  --color-secondary-light: hsl(155 50% 65%);
+  --color-accent: hsl(30 85% 60%);
+  --color-accent-foreground: hsl(0 0% 100%);
+  --color-muted: hsl(215 20% 20%);
+  --color-muted-foreground: hsl(215 15% 60%);
+  --color-destructive: hsl(0 65% 55%);
+  --color-destructive-foreground: hsl(0 0% 100%);
+  --color-border: hsl(215 20% 25%);
+  --color-input: hsl(215 20% 22%);
+  --color-ring: hsl(200 75% 60%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    hsl(200 75% 60%),
+    hsl(155 50% 55%)
+  );
+  --gradient-card: linear-gradient(180deg, hsl(215 25% 15%), hsl(215 30% 12%));
+  --shadow-soft: 0 4px 20px -2px hsl(200 75% 60% / 0.2);
+  --shadow-medium: 0 8px 30px -4px hsl(200 75% 60% / 0.25);
+  --sidebar-background: hsl(240 5.9% 10%);
+  --sidebar-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-primary: hsl(224.3 76.3% 48%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(240 3.7% 15.9%);
+  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+  --sidebar-border: hsl(240 3.7% 15.9%);
+  --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 🧩 Estilos globais */
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bordas e transições */
+* {
+  border-color: var(--color-border);
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
 }

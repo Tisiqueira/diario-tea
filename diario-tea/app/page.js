@@ -15,8 +15,8 @@ export default function Home() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full shadow-md mb-6">
               <Heart className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-              AuTEA Progress
+            <h1 className="text-5xl pt-6 md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Diário TEA
             </h1>
             <p className="text-xl md:text-2xl text-foreground/80 max-w-2xl mx-auto">
               Acompanhe e registre a evolução diária de crianças autistas de
