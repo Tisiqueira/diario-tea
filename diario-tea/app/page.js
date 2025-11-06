@@ -55,7 +55,7 @@ export default function Home() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
             <Button
-              onClick={() => router.push("auth/register")}
+              onClick={() => router.push("/register")}
               size="lg"
               className="text-lg px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
             >
