@@ -58,7 +58,7 @@
   --font-mono: var(--font-geist-mono), monospace;
 }
 
-/* 🌙 Tema escuro */
+/* 🌙 Tema escuro 
 @theme dark {
   --color-background: hsl(215 30% 12%);
   --color-foreground: hsl(210 25% 95%);
@@ -98,7 +98,7 @@
   --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
   --sidebar-border: hsl(240 3.7% 15.9%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
+} */
 
 /* 🧩 Estilos globais */
 html,

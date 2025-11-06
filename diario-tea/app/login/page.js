@@ -1,7 +1,18 @@
 "use client";
-import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabaseClient";
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
+import { toast } from "@/app/components/ui/sonner";
+import { Loader2, Heart } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
