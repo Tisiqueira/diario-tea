@@ -9,6 +9,7 @@ import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import Layout from "../components/ui/layout";
 
 const Register = () => {
   const router = useRouter();
@@ -49,11 +50,11 @@ const Register = () => {
     }
   };
 
+  const title = "Criar conta";
+  const description = "Preencha os dados para iniciar sua jornada";
+
   return (
-    <div
-      title="Criar conta"
-      description="Preencha os dados para criar sua conta"
-    >
+    <Layout title={title} description={description}>
       <form onSubmit={handleRegister} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="fullName">Nome completo</Label>
@@ -91,7 +92,7 @@ const Register = () => {
         </div>
         <Button
           type="submit"
-          className="w-full bg-gradient-to-r from-primary to-secondary"
+          className="w-full rounded-lg border bg-gradient-to-r from-primary to-secondary"
           disabled={loading}
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -103,7 +104,7 @@ const Register = () => {
           Já tem uma conta? Fazer login
         </Link>
       </div>
-    </div>
+    </Layout>
   );
 };
 
