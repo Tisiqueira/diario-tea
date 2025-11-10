@@ -27,7 +27,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (error) alert(error.message);
-    else router.push("/");
+    else router.push("/dashboard");
   };
   const title = "Bem-vindo de volta";
   const description = "Entre com sua conta para continuar";
