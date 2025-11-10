@@ -10,8 +10,10 @@ import {
 } from "../ui/card";
 import { TrendingUp } from "lucide-react";
 
-export default function KeyWords() {
-  const [keywords, setKeywords] = useState({});
+export default function KeyWords({ keywords }) {
+  const topKeywords = Object.entries(keywords)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 6);
 
   return (
     <Card className="shadow-[var(--shadow-soft)]">
