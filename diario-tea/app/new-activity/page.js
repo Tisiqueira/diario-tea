@@ -1,8 +1,20 @@
 "use client";
+
 import { useState } from "react";
+
 import Header from "../components/ui/header";
 import Label from "../components/ui/header";
 import { Input } from "../components/ui/input";
+import { TextArea } from "../components/ui/textArea";
+import { Button } from "../components/ui/button";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
 
 import {
   Card,
@@ -78,10 +90,10 @@ export default function NovaAtividade() {
               <div className="space-y-2">
                 <Label htmlFor="activity_type">Tipo de Atividade</Label>
                 <Select
-                  value={formData.activity_type}
+                  /*value={formData.activity_type}
                   onValueChange={(value) =>
                     setFormData({ ...formData, activity_type: value })
-                  }
+                  }*/
                   disabled={loading}
                   required
                 >
@@ -103,15 +115,15 @@ export default function NovaAtividade() {
                 <Label htmlFor="behavior_description">
                   Descrição do Comportamento
                 </Label>
-                <Textarea
+                <TextArea
                   id="behavior_description"
-                  value={formData.behavior_description}
+                  /*value={formData.behavior_description}
                   onChange={(e) =>
                     setFormData({
                       ...formData,
                       behavior_description: e.target.value,
                     })
-                  }
+                  }*/
                   placeholder="Descreva como foi a atividade e o comportamento da criança..."
                   rows={6}
                   required
@@ -123,10 +135,10 @@ export default function NovaAtividade() {
                 <Label htmlFor="keywords">Palavras-Chave (opcional)</Label>
                 <Input
                   id="keywords"
-                  value={formData.keywords}
+                  /*value={formData.keywords}
                   onChange={(e) =>
                     setFormData({ ...formData, keywords: e.target.value })
-                  }
+                  }*/
                   placeholder="Separe por vírgula: cooperação, atenção, comunicação"
                   disabled={loading}
                 />
