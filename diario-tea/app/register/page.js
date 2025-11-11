@@ -25,8 +25,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [role, setRole] = useState("");
-  const [clinicName, setClinicName] = useState(""); // 🏥 Nome da clínica
-  const [children, setChildren] = useState([{ full_name: "" }]);
+  const [children, setChildren] = useState([{ full_name: "" }]); // 👶 Novo estado para filhos (se pai)
 
   useEffect(() => {
     const checkUser = async () => {
@@ -64,22 +63,23 @@ const Register = () => {
       });
 
       if (error) throw error;
+
       const user = data.user;
-      if (!user) throw new Error("Usuário não criado.");
 
-      // 2️⃣ Cria/atualiza perfil
-      const { error: profileError } = await supabase.from("profiles").upsert([
-        {
-          id: user.id,
-          full_name: fullName,
-          role: role,
-          email: email,
-        },
-      ]);
-      if (profileError) throw profileError;
+      // 2️⃣ Cria o perfil do usuário (garantia extra, embora trigger já faça isso)
+      if (user) {
+        const { error: profileError } = await supabase.from("profiles").upsert([
+          {
+            id: user.id,
+            full_name: fullName,
+            role: role,
+          },
+        ]);
+        if (profileError) throw profileError;
+      }
 
-      // 3️⃣ Se for PAI → cria filhos
-      if (role === "Pais") {
+      // 3️⃣ Se for PAI, cria os filhos na tabela children
+      if (role === "Pais" && user) {
         const validChildren = children.filter((c) => c.full_name.trim() !== "");
         if (validChildren.length > 0) {
           const { error: childError } = await supabase.from("children").insert(
@@ -90,51 +90,6 @@ const Register = () => {
           );
           if (childError) throw childError;
         }
-      }
-
-      // 4️⃣ Se for PROFISSIONAL → associa à clínica
-      if (role !== "Pais") {
-        if (!clinicName.trim()) throw new Error("Informe o nome da clínica.");
-
-        // Verifica se a clínica já existe
-        const { data: existingClinic, error: clinicFetchError } = await supabase
-          .from("clinics")
-          .select("id")
-          .eq("name", clinicName.trim())
-          .single();
-
-        if (clinicFetchError && clinicFetchError.code !== "PGRST116") {
-          throw clinicFetchError;
-        }
-
-        let clinicId;
-
-        if (existingClinic) {
-          clinicId = existingClinic.id;
-        } else {
-          // Cria nova clínica
-          const { data: newClinic, error: clinicInsertError } = await supabase
-            .from("clinics")
-            .insert([{ name: clinicName.trim() }])
-            .select()
-            .single();
-
-          if (clinicInsertError) throw clinicInsertError;
-          clinicId = newClinic.id;
-        }
-
-        // Cria vínculo na tabela clinic_professionals
-        const { error: linkError } = await supabase
-          .from("clinic_professionals")
-          .insert([
-            {
-              clinic_id: clinicId,
-              professional_id: user.id,
-              role: role,
-            },
-          ]);
-
-        if (linkError) throw linkError;
       }
 
       toast.success("Conta criada com sucesso!");
@@ -218,23 +173,7 @@ const Register = () => {
           </Select>
         </div>
 
-        {/* Campo da clínica (só para profissionais) */}
-        {role && role !== "Pais" && (
-          <div className="space-y-2 mt-4">
-            <Label htmlFor="clinicName">Clínica</Label>
-            <Input
-              id="clinicName"
-              type="text"
-              placeholder="Nome da clínica"
-              value={clinicName}
-              onChange={(e) => setClinicName(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-        )}
-
-        {/* Campos de filhos (só se for pai) */}
+        {/* 👶 Campos de filhos (aparece só se for pai) */}
         {role === "Pais" && (
           <div className="space-y-2 mt-6">
             <Label>Filho(a)</Label>
@@ -242,7 +181,7 @@ const Register = () => {
               <div key={index} className="flex gap-2">
                 <Input
                   type="text"
-                  placeholder={`Nome do(a) filho(a)`}
+                  placeholder={`Nome Filho(a)`}
                   value={child.full_name}
                   onChange={(e) => handleChildChange(index, e.target.value)}
                   disabled={loading}
@@ -250,9 +189,16 @@ const Register = () => {
                 />
               </div>
             ))}
-            {/* <Button type="button" variant="outline" onClick={handleAddChild}>
+            {/*
+                        <Button
+              type="button"
+              variant="outline"
+              onClick={handleAddChild}
+              disabled={loading}
+            >
               + Adicionar outro filho
-            </Button> */}
+            </Button>
+            */}
           </div>
         )}
 
