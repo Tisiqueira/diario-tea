@@ -5,14 +5,6 @@ import KeyWordsFrequent from "../components/app/KeyWordsFrequent";
 import RecentActivity from "../components/app/RecentActivity";
 
 import Header from "../components/ui/header";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
-import { Calendar } from "lucide-react";
 
 export default function Dashboard() {
   const keywords = {
@@ -26,12 +18,15 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <Header />
+
       <main className="container mx-auto px-4 py-8">
+        {/* CONTEÚDO PRINCIPAL */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
           <SumRegister />
           <KeyWords keywords={keywords} />
           <Actions />
         </div>
+
         <KeyWordsFrequent keywords={keywords} />
         <RecentActivity />
       </main>
