@@ -16,11 +16,10 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+    <div className="min-h-screen bg-linear-to-br from-background to-muted">
       <Header />
 
       <main className="container mx-auto px-4 py-8">
-        {/* CONTEÚDO PRINCIPAL */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-8">
           <SumRegister />
           <KeyWords keywords={keywords} />

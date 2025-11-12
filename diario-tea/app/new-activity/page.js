@@ -113,7 +113,7 @@ const NewActivity = () => {
       const { error } = await supabase.from("activities").insert([
         {
           user_id: user.id,
-          child_id: formData.child_id, // 👈 criança selecionada
+          child_id: formData.child_id,
           activity_date: formData.activity_date,
           activity_type: formData.activity_type,
           behavior_description: formData.behavior_description,
@@ -134,7 +134,7 @@ const NewActivity = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+    <div className="min-h-screen bg-linear-to-br from-background to-muted">
       <header className="border-b bg-card/50 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center gap-3">
           <Button
@@ -145,10 +145,10 @@ const NewActivity = () => {
             <ArrowLeft className="w-4 h-4" />
           </Button>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-linear-to-br from-primary to-secondary rounded-full flex items-center justify-center">
               <Heart className="w-5 h-5 text-white" />
             </div>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+            <h1 className="text-2xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
               Nova Atividade
             </h1>
           </div>
@@ -156,7 +156,7 @@ const NewActivity = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8">
-        <Card className="max-w-2xl mx-auto shadow-[var(--shadow-medium)]">
+        <Card className="max-w-2xl mx-auto shadow-(--shadow-medium)]">
           <CardHeader>
             <CardTitle>Registrar Nova Atividade</CardTitle>
             <CardDescription>
@@ -165,7 +165,6 @@ const NewActivity = () => {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* 🔹 Campo: Criança */}
               <div className="space-y-2">
                 <Label htmlFor="child_id">Criança</Label>
                 <Select
@@ -193,7 +192,6 @@ const NewActivity = () => {
                   </p>
                 )}
               </div>
-
               {/* Data */}
               <div className="space-y-2">
                 <Label htmlFor="activity_date">Data da Atividade</Label>
@@ -209,39 +207,61 @@ const NewActivity = () => {
                 />
               </div>
 
-              {/* Tipo de atividade */}
-              <div className="space-y-2">
-                <Label htmlFor="activity_type">Tipo de Atividade</Label>
-                <Select
-                  value={formData.activity_type}
-                  onValueChange={(value) =>
-                    setFormData({ ...formData, activity_type: value })
-                  }
-                  required
-                  disabled={loading}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o tipo da atividade" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Fonoaudiologia">
-                      Fonoaudiologia
-                    </SelectItem>
-                    <SelectItem value="Psicologia ABA">
-                      Psicologia ABA
-                    </SelectItem>
-                    <SelectItem value="Terapia Ocupacional">
-                      Terapia Ocupacional
-                    </SelectItem>
-                    <SelectItem value="Acompanhante Terapêutico (AT)">
-                      Acompanhante Terapêutico (AT)
-                    </SelectItem>
-                    <SelectItem value="Psicomotricista">
-                      Psicomotricista
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+              {role === "Pais" ? (
+                <div className="space-y-2">
+                  <Label htmlFor="activity_type">Tipo de Atividade</Label>
+                  <Select
+                    value={formData.activity_type}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, activity_type: value })
+                    }
+                    required
+                    disabled={loading}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o tipo da atividade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Rotina familiar">
+                        Rotina familiar
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Label htmlFor="activity_type">Tipo de Atividade</Label>
+                  <Select
+                    value={formData.activity_type}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, activity_type: value })
+                    }
+                    required
+                    disabled={loading}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o tipo da atividade" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Acompanhante Terapêutico (AT)">
+                        Acompanhante Terapêutico (AT)
+                      </SelectItem>
+                      <SelectItem value="Fonoaudiologia">
+                        Fonoaudiologia
+                      </SelectItem>
+                      <SelectItem value="Psicologia ABA">
+                        Psicologia ABA
+                      </SelectItem>
+                      <SelectItem value="Psicomotricista">
+                        Psicomotricista
+                      </SelectItem>
+                      <SelectItem value="Terapia Ocupacional">
+                        Terapia Ocupacional
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               {/* Descrição */}
               <div className="space-y-2">
@@ -263,7 +283,6 @@ const NewActivity = () => {
                   disabled={loading}
                 />
               </div>
-
               {/* Palavras-chave */}
               <div className="space-y-2">
                 <Label htmlFor="keywords">Palavras-Chave (opcional)</Label>
@@ -277,7 +296,6 @@ const NewActivity = () => {
                   disabled={loading}
                 />
               </div>
-
               <div className="flex gap-3">
                 <Button
                   type="button"
@@ -291,7 +309,7 @@ const NewActivity = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                  className="flex-1 bg-linear-to-r from-primary to-secondary hover:opacity-90"
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Salvar Atividade

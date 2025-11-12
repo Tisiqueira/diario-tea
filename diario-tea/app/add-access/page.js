@@ -210,7 +210,7 @@ const AddAccess = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-primary to-secondary hover:opacity-90"
+                  className="flex-1 bg-linear-to-r from-primary to-secondary hover:opacity-90"
                 >
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   Conceder Acesso
