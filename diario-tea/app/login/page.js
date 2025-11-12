@@ -27,7 +27,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (error) alert(error.message);
-    else router.push("/dashboard");
+    else router.push("/landing-page");
   };
   const title = "Bem-vindo de volta";
   const description = "Entre com sua conta para continuar";
@@ -63,7 +63,7 @@ export default function LoginPage() {
 
         <Button
           type="submit"
-          className="w-full rounded-lg border bg-gradient-to-r from-primary to-secondary"
+          className="w-full rounded-lg border bg-linear-to-r from-primary to-secondary"
           disabled={loading}
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
