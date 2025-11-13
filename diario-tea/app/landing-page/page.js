@@ -155,6 +155,17 @@ const Index = () => {
 
               <div className="flex gap-3">
                 <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() =>
+                    router.push(`/client-register/${formData.child_id}`)
+                  }
+                  disabled={loading}
+                  className="flex-1"
+                >
+                  Editar Cadastro
+                </Button>
+                <Button
                   type="submit"
                   disabled={loading}
                   className="flex-1 bg-linear-to-r from-primary to-secondary hover:opacity-90"
