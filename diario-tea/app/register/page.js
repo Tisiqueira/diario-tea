@@ -52,7 +52,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // 1️⃣ Cria o usuário no Supabase Auth
+      // 1️⃣ Criar usuário Auth
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -66,19 +66,36 @@ const Register = () => {
 
       const user = data.user;
 
-      // 2️⃣ Cria o perfil do usuário (garantia extra, embora trigger já faça isso)
+      // 2️⃣ Criar perfil
       if (user) {
         const { error: profileError } = await supabase.from("profiles").upsert([
           {
             id: user.id,
             full_name: fullName,
             role: role,
+            email: email,
           },
         ]);
         if (profileError) throw profileError;
       }
 
-      // 3️⃣ Se for PAI, cria os filhos na tabela children
+      // 3️⃣ Se for PROFISSIONAL, criar dados complementares
+      if (role !== "Pais" && user) {
+        const { error: profError } = await supabase
+          .from("professionals")
+          .insert([
+            {
+              id: user.id, // mesmo ID do profile
+              specialty: role, // usando o role como especialidade
+              license_number: null, // preenchido depois
+              clinic_id: null, // preenchido depois
+            },
+          ]);
+
+        if (profError) throw profError;
+      }
+
+      // 4️⃣ Se for PAI, criar lista de filhos
       if (role === "Pais" && user) {
         const validChildren = children.filter((c) => c.full_name.trim() !== "");
         if (validChildren.length > 0) {
