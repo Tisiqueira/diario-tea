@@ -8,14 +8,14 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-muted to-background">
+    <div className="min-h-screen bg-linear-to-br from-background via-muted to-background">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto text-center space-y-12">
           <div className="space-y-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full shadow-md mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-primary to-secondary rounded-full shadow-md mb-6">
               <Heart className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-5xl pt-6 md:text-6xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <h1 className="text-5xl pt-6 md:text-6xl font-bold bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Diário TEA
             </h1>
             <p className="text-xl md:text-2xl text-foreground/80 max-w-2xl mx-auto">
@@ -57,7 +57,7 @@ export default function Home() {
             <Button
               onClick={() => router.push("/register")}
               size="lg"
-              className="text-lg px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
+              className="text-lg px-8 bg-linear-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
             >
               Começar Agora
             </Button>

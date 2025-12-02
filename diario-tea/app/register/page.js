@@ -52,12 +52,12 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // 1️⃣ Criar usuário Auth
+      //Criar usuário Auth
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/dashboard`,
+          emailRedirectTo: `${window.location.origin}/landing-page`,
           data: { full_name: fullName, role },
         },
       });
@@ -66,7 +66,7 @@ const Register = () => {
 
       const user = data.user;
 
-      // 2️⃣ Criar perfil
+      // Criar perfil
       if (user) {
         const { error: profileError } = await supabase.from("profiles").upsert([
           {
@@ -79,7 +79,7 @@ const Register = () => {
         if (profileError) throw profileError;
       }
 
-      // 3️⃣ Se for PROFISSIONAL, criar dados complementares
+      //Se for PROFISSIONAL, criar dados complementares
       if (role !== "Pais" && user) {
         const { error: profError } = await supabase
           .from("professionals")
@@ -95,7 +95,7 @@ const Register = () => {
         if (profError) throw profError;
       }
 
-      // 4️⃣ Se for PAI, criar lista de filhos
+      //Se for PAI, criar lista de filhos
       if (role === "Pais" && user) {
         const validChildren = children.filter((c) => c.full_name.trim() !== "");
         if (validChildren.length > 0) {
@@ -222,7 +222,7 @@ const Register = () => {
         {/* Botão de envio */}
         <Button
           type="submit"
-          className="w-full rounded-lg border bg-gradient-to-r from-primary to-secondary"
+          className="w-full rounded-lg border bg-linear-to-r from-primary to-secondary"
           disabled={loading}
         >
           {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
