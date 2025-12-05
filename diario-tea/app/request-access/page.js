@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/app/components/ui/card";
 import { toast } from "sonner";
+import { ArrowLeft, Loader2, Heart } from "lucide-react";
 
 export default function RequestChildAccess() {
   const [aliasChild, setAliasChild] = useState("");
@@ -103,29 +104,51 @@ export default function RequestChildAccess() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10">
-      <Card>
-        <CardHeader>
-          <CardTitle>Solicitar acesso à criança</CardTitle>
-        </CardHeader>
-
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label>Código da criança</Label>
-              <Input
-                placeholder="Ex: ABX921"
-                value={aliasChild}
-                onChange={(e) => setAliasChild(e.target.value)}
-              />
+    <div className="min-h-screen bg-linear-to-br from-background to-muted">
+      <header className="border-b bg-card/50 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-4 flex items-center gap-3">
+          <Button
+            onClick={() => router.push("/dashboard")}
+            variant="ghost"
+            size="sm"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </Button>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-linear-to-br from-primary to-secondary rounded-full flex items-center justify-center">
+              <Heart className="w-5 h-5 text-white" />
             </div>
+            <h1 className="text-2xl font-bold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Solicitar acesso
+            </h1>
+          </div>
+        </div>
+      </header>
 
-            <Button type="submit" disabled={loading} className="w-full">
-              {loading ? "Enviando..." : "Enviar solicitação"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+      <div className="max-w-md mx-auto mt-10">
+        <Card>
+          <CardHeader>
+            <CardTitle>Solicitar acesso à criança</CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label>Código da criança</Label>
+                <Input
+                  placeholder="Ex: ABX921"
+                  value={aliasChild}
+                  onChange={(e) => setAliasChild(e.target.value)}
+                />
+              </div>
+
+              <Button type="submit" disabled={loading} className="w-full">
+                {loading ? "Enviando..." : "Enviar solicitação"}
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
